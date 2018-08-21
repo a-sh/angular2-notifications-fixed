@@ -289,7 +289,9 @@ var SimpleNotificationsComponent = /** @class */ (function () {
                     _this.defaultBehavior(item);
                     break;
             }
-            _this.cdr.detectChanges();
+            if (!_this.cdr['destroyed']) {
+                _this.cdr.detectChanges();
+            }
         });
     };
     /**
@@ -539,7 +541,11 @@ var NotificationComponent = /** @class */ (function () {
                 }
                 _this.timer = setTimeout(_this.instance, _this.sleepTime);
             }
-            _this.zone.run(function () { return _this.cdr.detectChanges(); });
+            _this.zone.run(function () {
+                if (!_this.cdr['destroyed']) {
+                    _this.cdr.detectChanges();
+                }
+            });
         };
     }
     /**
